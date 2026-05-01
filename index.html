@@ -3,35 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="シンプルで使いやすい管理画面ダッシュボード" />
-  <title>Admin Dashboard</title>
+  <meta name="description" content="厨二っぽい雰囲気のカラフルな管理画面ダッシュボード" />
+  <title>Night Archive // Dashboard</title>
   <style>
     :root {
-      --bg: #0b1220;
-      --panel: #111a2e;
-      --panel-2: #0f172a;
-      --line: rgba(255, 255, 255, 0.08);
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-2: #22c55e;
-      --warn: #f59e0b;
-      --danger: #f87171;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
-      --radius: 22px;
-      --sidebar: 260px;
+      --bg: #070814;
+      --bg2: #0d1024;
+      --panel: rgba(15, 18, 40, 0.82);
+      --panel-strong: rgba(18, 22, 50, 0.95);
+      --line: rgba(255, 255, 255, 0.10);
+      --text: #eef1ff;
+      --muted: #9aa4d6;
+      --violet: #a855f7;
+      --cyan: #22d3ee;
+      --pink: #ff4fa0;
+      --green: #4ade80;
+      --gold: #fbbf24;
+      --red: #fb7185;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+      --radius: 24px;
+      --sidebar: 280px;
     }
 
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 26%),
-        radial-gradient(circle at top right, rgba(34, 197, 94, 0.10), transparent 24%),
-        linear-gradient(180deg, #050816 0%, var(--bg) 100%);
       color: var(--text);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(168, 85, 247, 0.22), transparent 24%),
+        radial-gradient(circle at 88% 14%, rgba(34, 211, 238, 0.18), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(255, 79, 160, 0.14), transparent 28%),
+        linear-gradient(180deg, #050611 0%, var(--bg) 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.45), transparent 85%);
+      pointer-events: none;
+      opacity: 0.28;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -47,49 +66,70 @@
       position: sticky;
       top: 0;
       height: 100vh;
-      padding: 20px;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(10, 12, 28, 0.94), rgba(8, 10, 22, 0.88));
       border-right: 1px solid var(--line);
-      background: rgba(8, 13, 27, 0.8);
       backdrop-filter: blur(18px);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 12px 18px;
-      margin-bottom: 14px;
+      gap: 14px;
+      padding: 12px 12px 18px;
+      margin-bottom: 18px;
       border-bottom: 1px solid var(--line);
     }
 
-    .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
+    .sigil {
+      width: 50px;
+      height: 50px;
+      border-radius: 18px;
       display: grid;
       place-items: center;
-      font-weight: 800;
-      color: #03111c;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.22);
+      font-weight: 900;
+      color: white;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 26%),
+        linear-gradient(135deg, var(--pink), var(--violet), var(--cyan));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.12) inset,
+        0 18px 42px rgba(168, 85, 247, 0.24);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sigil::after {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: conic-gradient(from 180deg, transparent, rgba(255,255,255,0.16), transparent);
+      animation: spin 10s linear infinite;
+    }
+
+    .sigil span {
+      position: relative;
+      z-index: 1;
+      font-size: 1.1rem;
     }
 
     .brand h1 {
-      font-size: 1.05rem;
       margin: 0;
-      line-height: 1.2;
+      font-size: 1.08rem;
+      line-height: 1.15;
+      letter-spacing: 0.03em;
     }
 
     .brand p {
-      margin: 3px 0 0;
+      margin: 4px 0 0;
       color: var(--muted);
       font-size: 0.88rem;
     }
 
     .nav {
       display: grid;
-      gap: 8px;
-      margin-top: 16px;
+      gap: 10px;
+      margin-top: 18px;
     }
 
     .nav a {
@@ -97,37 +137,55 @@
       align-items: center;
       gap: 12px;
       padding: 14px 14px;
-      border-radius: 16px;
-      color: #cbd5e1;
-      transition: 0.2s ease;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      color: #dfe6ff;
+      background: transparent;
+      transition: 0.22s ease;
     }
 
     .nav a:hover,
     .nav a.active {
-      background: rgba(255, 255, 255, 0.06);
-      color: white;
+      transform: translateX(2px);
+      background: linear-gradient(135deg, rgba(255, 79, 160, 0.12), rgba(34, 211, 238, 0.10));
+      border-color: rgba(255,255,255,0.10);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
     }
 
-    .nav .dot {
+    .dot {
       width: 10px;
       height: 10px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.8);
+      border-radius: 50%;
+      background: rgba(154, 164, 214, 0.92);
+      box-shadow: 0 0 0 5px rgba(255,255,255,0.03);
     }
 
-    .nav a.active .dot { background: var(--accent); }
+    .nav a.active .dot { background: var(--cyan); }
 
     .sidebar-card {
       margin-top: 20px;
       padding: 18px;
-      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(17, 26, 46, 0.9), rgba(12, 19, 35, 0.95));
+      background: linear-gradient(180deg, rgba(28, 20, 58, 0.98), rgba(12, 14, 30, 0.98));
+      border: 1px solid rgba(255,255,255,0.10);
       box-shadow: var(--shadow);
     }
 
-    .sidebar-card strong { display: block; margin-bottom: 8px; }
-    .sidebar-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .sidebar-card strong {
+      display: block;
+      margin-bottom: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      color: #f3e8ff;
+    }
+
+    .sidebar-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
 
     .main {
       padding: 24px;
@@ -143,14 +201,15 @@
 
     .search {
       flex: 1;
-      max-width: 520px;
+      max-width: 560px;
       display: flex;
       align-items: center;
       gap: 10px;
       padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.04);
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
     }
 
     .search input {
@@ -165,6 +224,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .icon-btn,
@@ -173,38 +233,41 @@
       border: 0;
       border-radius: 16px;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: 0.22s ease;
     }
 
     .icon-btn {
       width: 46px;
       height: 46px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,0.06);
       color: var(--text);
       border: 1px solid var(--line);
     }
 
     .primary-btn {
       padding: 13px 16px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #04111d;
-      font-weight: 700;
+      color: white;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--pink), var(--violet), var(--cyan));
+      box-shadow: 0 18px 34px rgba(168,85,247,0.18);
     }
 
     .ghost-btn {
       padding: 13px 16px;
-      background: rgba(255, 255, 255, 0.05);
       color: var(--text);
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--line);
     }
 
     .icon-btn:hover,
     .primary-btn:hover,
-    .ghost-btn:hover { transform: translateY(-1px); }
+    .ghost-btn:hover {
+      transform: translateY(-2px);
+    }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.5fr 0.9fr;
+      grid-template-columns: 1.45fr 0.95fr;
       gap: 18px;
       margin-bottom: 18px;
     }
@@ -212,62 +275,151 @@
     .panel {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(17, 26, 46, 0.96), rgba(12, 19, 35, 0.96));
+      background: linear-gradient(180deg, rgba(18, 22, 46, 0.96), rgba(11, 13, 28, 0.96));
       box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
     .welcome {
-      padding: 26px;
+      position: relative;
+      padding: 28px;
+      isolation: isolate;
     }
 
-    .welcome .eyebrow {
+    .welcome::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(255,79,160,0.16), transparent 22%),
+        radial-gradient(circle at 82% 18%, rgba(34,211,238,0.16), transparent 22%),
+        radial-gradient(circle at 58% 82%, rgba(168,85,247,0.10), transparent 28%);
+      z-index: -1;
+    }
+
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       margin-bottom: 12px;
       font-size: 0.92rem;
-      color: #cbd5e1;
-      background: rgba(255, 255, 255, 0.05);
+      color: #eef2ff;
+      background: rgba(255,255,255,0.06);
       border: 1px solid var(--line);
       padding: 8px 12px;
       border-radius: 999px;
     }
 
     .badge-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: var(--accent-2);
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.12);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(74,222,128,0.12);
     }
 
     .welcome h2 {
       margin: 0;
-      font-size: clamp(1.5rem, 3vw, 2.4rem);
-      line-height: 1.15;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      line-height: 1.12;
+      max-width: 16ch;
+      letter-spacing: 0.02em;
     }
 
     .welcome p {
       margin: 14px 0 0;
       color: var(--muted);
       max-width: 66ch;
+      line-height: 1.8;
     }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--line);
+      color: #eef2ff;
+      font-size: 0.9rem;
+    }
+
+    .pill i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      background: var(--cyan);
+    }
+
+    .pill.pink i { background: var(--pink); }
+    .pill.green i { background: var(--green); }
+    .pill.gold i { background: var(--gold); }
 
     .stats {
       display: grid;
-      gap: 18px;
+      gap: 16px;
+      padding: 20px;
     }
 
     .stat-card {
-      padding: 20px;
-      display: grid;
-      gap: 8px;
-      align-content: start;
+      position: relative;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      overflow: hidden;
     }
 
-    .stat-card .label { color: var(--muted); font-size: 0.92rem; }
-    .stat-card .value { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; }
-    .stat-card .trend { color: #bbf7d0; font-size: 0.92rem; }
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -28px -28px auto;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.22), transparent 70%);
+    }
+
+    .label { color: var(--muted); font-size: 0.92rem; }
+    .value { font-size: 2.05rem; font-weight: 900; letter-spacing: -0.04em; margin-top: 6px; }
+    .trend { color: #c9f7d8; font-size: 0.92rem; margin-top: 8px; }
+
+    .mini-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .mini-card {
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 1.04rem;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
 
     .grid-4 {
       display: grid;
@@ -277,37 +429,53 @@
     }
 
     .metric {
+      position: relative;
       padding: 20px;
+      background: linear-gradient(180deg, rgba(20, 25, 54, 0.98), rgba(11, 13, 28, 0.98));
+    }
+
+    .metric::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,79,160,0.60), rgba(168,85,247,0.42), rgba(34,211,238,0.36));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.55;
     }
 
     .metric .title {
       color: var(--muted);
       font-size: 0.92rem;
       margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .metric .number {
       font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
+      font-weight: 900;
+      letter-spacing: -0.04em;
     }
 
     .metric .sub {
       margin-top: 8px;
-      color: #cbd5e1;
+      color: #dbe3ff;
       font-size: 0.92rem;
     }
 
     .content-grid {
       display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
+      grid-template-columns: 1.28fr 0.72fr;
       gap: 18px;
       margin-bottom: 18px;
     }
 
-    .card {
-      padding: 22px;
-    }
+    .card { padding: 22px; }
 
     .section-head {
       display: flex;
@@ -320,6 +488,8 @@
     .section-head h3 {
       margin: 0;
       font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .section-head span {
@@ -340,7 +510,14 @@
       font-size: 0.95rem;
     }
 
-    .table th { color: #cbd5e1; font-weight: 600; }
+    .table th {
+      color: #dce4ff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+    }
+
     .table td { color: var(--text); }
 
     .status {
@@ -349,9 +526,9 @@
       gap: 8px;
       padding: 7px 10px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.06);
       border: 1px solid var(--line);
-      color: #e2e8f0;
+      color: #eef2ff;
       font-size: 0.88rem;
     }
 
@@ -359,13 +536,51 @@
       content: "";
       width: 8px;
       height: 8px;
-      border-radius: 999px;
-      background: var(--accent-2);
-      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(74,222,128,0.12);
     }
 
-    .status.pending::before { background: var(--warn); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12); }
-    .status.error::before { background: var(--danger); box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.12); }
+    .status.pending::before {
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(251,191,36,0.12);
+    }
+
+    .status.error::before {
+      background: var(--red);
+      box-shadow: 0 0 0 4px rgba(251,113,133,0.12);
+    }
+
+    .chart {
+      height: 280px;
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      padding-top: 6px;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .bar {
+      width: 100%;
+      min-height: 26px;
+      border-radius: 18px 18px 8px 8px;
+      background: linear-gradient(180deg, var(--pink), var(--violet), var(--cyan));
+      box-shadow: 0 16px 28px rgba(168,85,247,0.18);
+    }
+
+    .bar-label { color: var(--muted); font-size: 0.88rem; }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
 
     .activity {
       display: grid;
@@ -386,44 +601,67 @@
     .activity-item .dot {
       width: 14px;
       height: 14px;
-      border-radius: 999px;
+      border-radius: 50%;
       margin-top: 5px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.10);
+      background: linear-gradient(135deg, var(--pink), var(--cyan));
+      box-shadow: 0 0 0 6px rgba(34,211,238,0.10);
     }
 
-    .activity-item .title { margin: 0; font-weight: 700; }
+    .activity-item .title { margin: 0; font-weight: 800; }
     .activity-item .desc { margin: 4px 0 0; color: var(--muted); font-size: 0.94rem; }
 
-    .chart {
-      height: 280px;
-      display: flex;
-      align-items: end;
-      gap: 12px;
-      padding-top: 6px;
-    }
-
-    .bar-wrap {
-      flex: 1;
+    .settings-list {
       display: grid;
-      gap: 10px;
-      justify-items: center;
+      gap: 12px;
     }
 
-    .bar {
-      width: 100%;
-      min-height: 26px;
-      border-radius: 16px 16px 8px 8px;
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.95), rgba(34, 197, 94, 0.9));
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.18);
+    .settings-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
     }
 
-    .bar-label { color: var(--muted); font-size: 0.88rem; }
-
-    .footer-note {
+    .settings-item span {
       color: var(--muted);
       font-size: 0.92rem;
-      margin-top: 8px;
+    }
+
+    .switch {
+      width: 46px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      position: relative;
+      flex: 0 0 auto;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.12);
+    }
+
+    .switch::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .rune {
+      display: inline-block;
+      margin-left: 8px;
+      color: var(--pink);
+      text-shadow: 0 0 12px rgba(255,79,160,0.55);
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     @media (max-width: 1100px) {
@@ -435,7 +673,8 @@
         border-bottom: 1px solid var(--line);
       }
       .hero,
-      .content-grid {
+      .content-grid,
+      .mini-cards {
         grid-template-columns: 1fr;
       }
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -447,10 +686,7 @@
         flex-direction: column;
         align-items: stretch;
       }
-      .top-actions {
-        justify-content: space-between;
-        flex-wrap: wrap;
-      }
+      .top-actions { justify-content: space-between; }
       .grid-4 { grid-template-columns: 1fr; }
       .table th:nth-child(2),
       .table td:nth-child(2) { display: none; }
@@ -463,10 +699,10 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="logo">A</div>
+        <div class="sigil"><span>A</span></div>
         <div>
-          <h1>Admin Dashboard</h1>
-          <p>Operations / Analytics</p>
+          <h1>Night Archive <span class="rune">✦</span></h1>
+          <p>Operations / Lore / Analytics</p>
         </div>
       </div>
 
@@ -479,8 +715,13 @@
       </nav>
 
       <div class="sidebar-card">
-        <strong>システム状態</strong>
-        <p>API: online<br />DB: healthy<br />Deploy: v1.8.2</p>
+        <strong>System Seal</strong>
+        <p>
+          API: online<br />
+          DB: stable<br />
+          Deploy: v1.8.2<br />
+          Status: awakened
+        </p>
       </div>
     </aside>
 
@@ -488,27 +729,33 @@
       <div class="topbar">
         <div class="search" role="search">
           <span>⌕</span>
-          <input type="search" placeholder="検索: 注文、ユーザー、レポート..." />
+          <input type="search" placeholder="検索: 注文、ユーザー、記録..." />
         </div>
         <div class="top-actions">
           <button class="icon-btn" aria-label="通知">🔔</button>
-          <button class="ghost-btn">今月</button>
-          <button class="primary-btn">新規作成</button>
+          <button class="ghost-btn">月蝕</button>
+          <button class="primary-btn">儀式開始</button>
         </div>
       </div>
 
       <section class="hero" id="overview">
         <div class="panel welcome">
-          <div class="eyebrow"><span class="badge-dot"></span> 本日のダッシュボード概要</div>
-          <h2>売上、注文、ユーザーの動きをひと目で確認できます。</h2>
+          <div class="eyebrow"><span class="badge-dot"></span> 本日の記録が開示されました</div>
+          <h2>静寂の中で、数字だけが真実を語る。</h2>
           <p>
-            管理画面の基本をまとめたHTML版です。人類は「見やすい」と言いながら、たいてい見づらい画面を作るので、そこだけ先に矯正してあります。
+            厨二っぽい雰囲気を最大化したダッシュボードです。黒と紫、淡い発光、少しだけ神秘っぽい文言で、
+            それっぽさを作っています。実機能がなくても、世界観が勝てばだいたい勝ちです。
           </p>
+          <div class="pill-row">
+            <span class="pill pink"><i></i> Forbidden Data</span>
+            <span class="pill green"><i></i> Responsive</span>
+            <span class="pill gold"><i></i> Arcane UI</span>
+          </div>
         </div>
 
-        <div class="panel stats card">
-          <div class="section-head" style="margin-bottom: 10px;">
-            <h3>今日の要点</h3>
+        <div class="panel stats">
+          <div class="section-head" style="margin-bottom: 8px;">
+            <h3>Oracle Readout</h3>
             <span>Updated 5 min ago</span>
           </div>
           <div class="stat-card">
@@ -516,12 +763,27 @@
             <div class="value">¥1,284,300</div>
             <div class="trend">+12.4% from yesterday</div>
           </div>
-          <div class="stat-card" style="padding-top: 0;">
-            <div class="label">未処理タスク</div>
+          <div class="stat-card">
+            <div class="label">封印解除待ち</div>
             <div class="value">18</div>
-            <div class="trend">4件が優先対応</div>
+            <div class="trend">4件が優先対象</div>
           </div>
         </div>
+      </section>
+
+      <section class="mini-cards">
+        <article class="mini-card">
+          <strong>暗黒のUI</strong>
+          <p>紫の光、深い影、浮遊感のあるカードで、ダッシュボード全体に魔導書っぽい空気を足しています。</p>
+        </article>
+        <article class="mini-card">
+          <strong>情報の刻印</strong>
+          <p>重要な数値を先に置いて、視線が迷わないようにしています。見た目は厨二でも、構造は真面目です。</p>
+        </article>
+        <article class="mini-card">
+          <strong>拡張の余地</strong>
+          <p>HTML1枚でも成立しつつ、あとからJSやAPIを入れても崩れにくい構成です。</p>
+        </article>
       </section>
 
       <section class="grid-4">
@@ -538,25 +800,25 @@
         <article class="panel metric">
           <div class="title">転換率</div>
           <div class="number">4.8%</div>
-          <div class="sub">安定しています</div>
+          <div class="sub">安定の魔力圏内</div>
         </article>
         <article class="panel metric">
           <div class="title">問い合わせ</div>
           <div class="number">12</div>
-          <div class="sub">2件は緊急</div>
+          <div class="sub">2件は緊急対応</div>
         </article>
       </section>
 
       <section class="content-grid">
         <div class="panel card" id="orders">
           <div class="section-head">
-            <h3>最新の注文</h3>
+            <h3>最新の記録</h3>
             <span>直近24時間</span>
           </div>
           <table class="table" aria-label="注文一覧">
             <thead>
               <tr>
-                <th>注文ID</th>
+                <th>伝票</th>
                 <th>顧客</th>
                 <th>金額</th>
                 <th>状態</th>
@@ -605,14 +867,14 @@
             <div class="bar-wrap"><div class="bar" style="height: 86%;"></div><div class="bar-label">Sat</div></div>
             <div class="bar-wrap"><div class="bar" style="height: 48%;"></div><div class="bar-label">Sun</div></div>
           </div>
-          <div class="footer-note">簡易表示。実データ連携に置き換えやすい構成です。</div>
+          <div class="footer-note">実データに差し替えやすい、見た目重視の封印式グラフです。</div>
         </div>
       </section>
 
       <section class="content-grid">
         <div class="panel card" id="users">
           <div class="section-head">
-            <h3>最近のユーザーアクティビティ</h3>
+            <h3>最近の活動</h3>
             <span>Live feed</span>
           </div>
           <div class="activity">
@@ -642,14 +904,38 @@
 
         <div class="panel card" id="settings">
           <div class="section-head">
-            <h3>クイック設定</h3>
+            <h3>秘匿設定</h3>
             <span>Preferences</span>
           </div>
-          <div style="display:grid; gap:12px;">
-            <button class="ghost-btn" style="width:100%; text-align:left;">通知を有効にする</button>
-            <button class="ghost-btn" style="width:100%; text-align:left;">ダークテーマ</button>
-            <button class="ghost-btn" style="width:100%; text-align:left;">CSVエクスポート</button>
-            <button class="ghost-btn" style="width:100%; text-align:left;">権限を確認する</button>
+          <div class="settings-list">
+            <div class="settings-item">
+              <div>
+                <strong>通知</strong>
+                <span>重要な更新だけ受け取る</span>
+              </div>
+              <div class="switch" aria-hidden="true"></div>
+            </div>
+            <div class="settings-item">
+              <div>
+                <strong>テーマ</strong>
+                <span>闇色のまま維持</span>
+              </div>
+              <div class="switch" aria-hidden="true"></div>
+            </div>
+            <div class="settings-item">
+              <div>
+                <strong>エクスポート</strong>
+                <span>CSVで書き出し</span>
+              </div>
+              <div class="switch" aria-hidden="true"></div>
+            </div>
+            <div class="settings-item">
+              <div>
+                <strong>権限</strong>
+                <span>管理者設定を確認</span>
+              </div>
+              <div class="switch" aria-hidden="true"></div>
+            </div>
           </div>
         </div>
       </section>
