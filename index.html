@@ -3,134 +3,164 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="シンプルで使いやすい管理画面ダッシュボード" />
-  <title>Admin Dashboard</title>
+  <title>Dashboard UI</title>
   <style>
     :root {
-      --bg: #0b1220;
-      --panel: #111a2e;
-      --panel-2: #0f172a;
-      --line: rgba(255, 255, 255, 0.08);
-      --text: #e5e7eb;
+      --bg: #0b1020;
+      --panel: rgba(15, 23, 42, 0.78);
+      --panel-2: rgba(20, 28, 48, 0.9);
+      --card: rgba(255, 255, 255, 0.06);
+      --card-strong: rgba(255, 255, 255, 0.1);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e5eefc;
       --muted: #94a3b8;
-      --accent: #38bdf8;
+      --accent: #7c3aed;
       --accent-2: #22c55e;
       --warn: #f59e0b;
-      --danger: #f87171;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+      --danger: #ef4444;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
       --radius: 22px;
-      --sidebar: 260px;
     }
 
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 26%),
-        radial-gradient(circle at top right, rgba(34, 197, 94, 0.10), transparent 24%),
-        linear-gradient(180deg, #050816 0%, var(--bg) 100%);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.28), transparent 26%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.12), transparent 22%),
+        linear-gradient(180deg, #060913, #0b1020 35%, #0a1020 100%);
+      overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-
     .app {
-      min-height: 100vh;
       display: grid;
-      grid-template-columns: var(--sidebar) 1fr;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
     }
 
     .sidebar {
       position: sticky;
       top: 0;
       height: 100vh;
-      padding: 20px;
-      border-right: 1px solid var(--line);
-      background: rgba(8, 13, 27, 0.8);
+      padding: 24px;
+      background: rgba(10, 15, 30, 0.55);
       backdrop-filter: blur(18px);
+      border-right: 1px solid var(--border);
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 10px 12px 18px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid var(--line);
+      margin-bottom: 28px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
     }
 
-    .logo {
+    .brand-mark {
       width: 42px;
       height: 42px;
       border-radius: 14px;
       display: grid;
       place-items: center;
       font-weight: 800;
-      color: #03111c;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.22);
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      box-shadow: 0 12px 30px rgba(124, 58, 237, 0.35);
     }
 
     .brand h1 {
-      font-size: 1.05rem;
       margin: 0;
+      font-size: 1rem;
       line-height: 1.2;
     }
 
     .brand p {
       margin: 3px 0 0;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
     }
 
     .nav {
       display: grid;
-      gap: 8px;
-      margin-top: 16px;
+      gap: 10px;
+      margin-top: 18px;
     }
 
     .nav a {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 14px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid transparent;
       border-radius: 16px;
-      color: #cbd5e1;
+      background: transparent;
       transition: 0.2s ease;
     }
 
     .nav a:hover,
     .nav a.active {
-      background: rgba(255, 255, 255, 0.06);
-      color: white;
+      background: rgba(255,255,255,0.07);
+      border-color: var(--border);
+      transform: translateX(2px);
     }
 
-    .nav .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.8);
+    .nav .icon {
+      width: 22px;
+      height: 22px;
+      display: inline-grid;
+      place-items: center;
+      color: #c4b5fd;
+      font-size: 1rem;
     }
 
-    .nav a.active .dot { background: var(--accent); }
-
-    .sidebar-card {
-      margin-top: 20px;
+    .side-card {
+      margin-top: 24px;
       padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(17, 26, 46, 0.9), rgba(12, 19, 35, 0.95));
-      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(124,58,237,0.13), rgba(255,255,255,0.04));
     }
 
-    .sidebar-card strong { display: block; margin-bottom: 8px; }
-    .sidebar-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .side-card h3 {
+      margin: 0 0 6px;
+      font-size: 0.98rem;
+    }
 
-    .main {
-      padding: 24px;
+    .side-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      cursor: pointer;
+      color: white;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      box-shadow: 0 16px 36px rgba(37, 99, 235, 0.22);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+    .content {
+      padding: 26px;
     }
 
     .topbar {
@@ -138,251 +168,263 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
-    .search {
-      flex: 1;
-      max-width: 520px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--line);
+    .title-block h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2vw, 2.2rem);
+      letter-spacing: -0.02em;
     }
 
-    .search input {
-      width: 100%;
-      border: 0;
-      outline: none;
-      color: var(--text);
-      background: transparent;
+    .title-block p {
+      margin: 6px 0 0;
+      color: var(--muted);
     }
 
     .top-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
-    .icon-btn,
-    .primary-btn,
-    .ghost-btn {
-      border: 0;
+    .search {
+      width: min(380px, 46vw);
+      min-width: 220px;
+      padding: 13px 16px;
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      cursor: pointer;
-      transition: 0.2s ease;
+      outline: none;
+      backdrop-filter: blur(14px);
     }
 
-    .icon-btn {
-      width: 46px;
-      height: 46px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
+    .search::placeholder { color: #8f9bb3; }
 
-    .primary-btn {
-      padding: 13px 16px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #04111d;
-      font-weight: 700;
-    }
-
-    .ghost-btn {
-      padding: 13px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    .icon-btn:hover,
-    .primary-btn:hover,
-    .ghost-btn:hover { transform: translateY(-1px); }
-
-    .admin-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px 8px 8px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--line);
-    }
-
-    .admin-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
       display: grid;
       place-items: center;
+      background: linear-gradient(135deg, #22c55e, #06b6d4);
       font-weight: 800;
-      color: #03111c;
-      background: linear-gradient(135deg, #fbbf24, #38bdf8);
-      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.15);
-      flex: 0 0 auto;
+      color: #04111a;
     }
 
-    .admin-text {
+    .grid {
       display: grid;
-      line-height: 1.1;
-    }
-
-    .admin-text .role {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .admin-text .name {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.5fr 0.9fr;
       gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(17, 26, 46, 0.96), rgba(12, 19, 35, 0.96));
-      box-shadow: var(--shadow);
-    }
-
-    .welcome {
-      padding: 26px;
-    }
-
-    .welcome .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      font-size: 0.92rem;
-      color: #cbd5e1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--line);
-      padding: 8px 12px;
-      border-radius: 999px;
-    }
-
-    .badge-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: var(--accent-2);
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.12);
-    }
-
-    .welcome h2 {
-      margin: 0;
-      font-size: clamp(1.5rem, 3vw, 2.4rem);
-      line-height: 1.15;
-    }
-
-    .welcome p {
-      margin: 14px 0 0;
-      color: var(--muted);
-      max-width: 66ch;
     }
 
     .stats {
-      display: grid;
-      gap: 18px;
-    }
-
-    .stat-card {
-      padding: 20px;
-      display: grid;
-      gap: 8px;
-      align-content: start;
-    }
-
-    .stat-card .label { color: var(--muted); font-size: 0.92rem; }
-    .stat-card .value { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; }
-    .stat-card .trend { color: #bbf7d0; font-size: 0.92rem; }
-
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .metric {
-      padding: 20px;
-    }
-
-    .metric .title {
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin-bottom: 10px;
-    }
-
-    .metric .number {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-
-    .metric .sub {
-      margin-top: 8px;
-      color: #cbd5e1;
-      font-size: 0.92rem;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       margin-bottom: 18px;
     }
 
     .card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .stat-card {
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20px -30px auto;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.35), transparent 70%);
+      pointer-events: none;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-meta {
+      margin-top: 10px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(34,197,94,0.14);
+      color: #86efac;
+      border: 1px solid rgba(34,197,94,0.22);
+    }
+
+    .badge.warn {
+      background: rgba(245,158,11,0.14);
+      color: #fcd34d;
+      border-color: rgba(245,158,11,0.22);
+    }
+
+    .main-grid {
+      grid-template-columns: 1.4fr 0.9fr;
+      align-items: start;
+    }
+
+    .panel {
       padding: 22px;
     }
 
-    .section-head {
+    .panel-head {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
-    .section-head h3 {
+    .panel-title {
       margin: 0;
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-subtitle {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .chart-wrap {
+      display: grid;
+      gap: 16px;
+    }
+
+    .chart {
+      width: 100%;
+      height: 300px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      padding: 14px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .mini {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .mini strong {
+      display: block;
+      margin-top: 8px;
       font-size: 1.1rem;
     }
 
-    .section-head span {
+    .mini span {
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.82rem;
+    }
+
+    .list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .item-info strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .item-info span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .amount {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), #22c55e);
     }
 
     .table {
       width: 100%;
       border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
     }
 
     .table th,
     .table td {
+      padding: 14px 16px;
       text-align: left;
-      padding: 14px 10px;
-      border-bottom: 1px solid var(--line);
-      font-size: 0.95rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
     }
 
-    .table th { color: #cbd5e1; font-weight: 600; }
-    .table td { color: var(--text); }
+    .table th {
+      color: #cbd5e1;
+      font-weight: 700;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .table tr:last-child td { border-bottom: 0; }
 
     .status {
       display: inline-flex;
@@ -390,10 +432,8 @@
       gap: 8px;
       padding: 7px 10px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--line);
-      color: #e2e8f0;
-      font-size: 0.88rem;
+      font-size: 0.8rem;
+      font-weight: 700;
     }
 
     .status::before {
@@ -401,105 +441,54 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: var(--accent-2);
-      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+      background: currentColor;
     }
 
-    .status.pending::before { background: var(--warn); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12); }
-    .status.error::before { background: var(--danger); box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.12); }
-
-    .activity {
-      display: grid;
-      gap: 14px;
-    }
-
-    .activity-item {
-      display: grid;
-      grid-template-columns: 14px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .activity-item:last-child { border-bottom: 0; }
-
-    .activity-item .dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      margin-top: 5px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.10);
-    }
-
-    .activity-item .title { margin: 0; font-weight: 700; }
-    .activity-item .desc { margin: 4px 0 0; color: var(--muted); font-size: 0.94rem; }
-
-    .chart {
-      height: 280px;
-      display: flex;
-      align-items: end;
-      gap: 12px;
-      padding-top: 6px;
-    }
-
-    .bar-wrap {
-      flex: 1;
-      display: grid;
-      gap: 10px;
-      justify-items: center;
-    }
-
-    .bar {
-      width: 100%;
-      min-height: 26px;
-      border-radius: 16px 16px 8px 8px;
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.95), rgba(34, 197, 94, 0.9));
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.18);
-    }
-
-    .bar-label { color: var(--muted); font-size: 0.88rem; }
+    .success { color: #86efac; background: rgba(34,197,94,0.12); }
+    .pending { color: #fcd34d; background: rgba(245,158,11,0.12); }
+    .danger { color: #fca5a5; background: rgba(239,68,68,0.12); }
 
     .footer-note {
+      margin-top: 18px;
       color: var(--muted);
-      font-size: 0.92rem;
-      margin-top: 8px;
+      font-size: 0.85rem;
     }
 
     @media (max-width: 1100px) {
-      .app { grid-template-columns: 1fr; }
+      .stats,
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
       .sidebar {
         position: relative;
         height: auto;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
       }
-      .hero,
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-      .grid-4 { grid-template-columns: repeat(2, 1fr); }
     }
 
-    @media (max-width: 700px) {
-      .main { padding: 16px; }
+    @media (max-width: 760px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+      .content {
+        padding: 18px;
+      }
       .topbar {
         flex-direction: column;
         align-items: stretch;
       }
       .top-actions {
         justify-content: space-between;
-        flex-wrap: wrap;
       }
-      .grid-4 { grid-template-columns: 1fr; }
-      .table th:nth-child(2),
-      .table td:nth-child(2) { display: none; }
-      .chart { gap: 8px; }
-      .sidebar { padding: 14px; }
-      .admin-profile {
+      .search {
         width: 100%;
-        justify-content: flex-start;
+      }
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+      .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
       }
     }
   </style>
@@ -508,111 +497,187 @@
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="logo">A</div>
+        <div class="brand-mark">D</div>
         <div>
-          <h1>Admin Dashboard</h1>
-          <p>Operations / Analytics</p>
+          <h1>DashPro</h1>
+          <p>管理画面デモ</p>
         </div>
       </div>
 
-      <nav class="nav" aria-label="サイドメニュー">
-        <a class="active" href="#overview"><span class="dot"></span> Overview</a>
-        <a href="#orders"><span class="dot"></span> Orders</a>
-        <a href="#users"><span class="dot"></span> Users</a>
-        <a href="#reports"><span class="dot"></span> Reports</a>
-        <a href="#settings"><span class="dot"></span> Settings</a>
+      <nav class="nav">
+        <a class="active" href="#"><span class="icon">▣</span> ダッシュボード</a>
+        <a href="#"><span class="icon">◌</span> 分析</a>
+        <a href="#"><span class="icon">✦</span> プロジェクト</a>
+        <a href="#"><span class="icon">☰</span> タスク</a>
+        <a href="#"><span class="icon">⎘</span> レポート</a>
+        <a href="#"><span class="icon">⚙</span> 設定</a>
       </nav>
 
-      <div class="sidebar-card">
-        <strong>システム状態</strong>
-        <p>API: online<br />DB: healthy<br />Deploy: v1.8.2</p>
+      <div class="side-card">
+        <h3>今月の進捗</h3>
+        <p>目標の 78% まで達成。雑に見えてちゃんと動くUIほど、人間は突然ありがたがります。</p>
+        <button class="btn">レポートを開く</button>
+      </div>
+
+      <div class="side-card">
+        <h3>ステータス</h3>
+        <p>システム稼働率 99.98%</p>
+        <div class="progress"><div class="bar" style="width: 99.98%"></div></div>
       </div>
     </aside>
 
-    <main class="main">
+    <main class="content">
       <div class="topbar">
-        <div class="search" role="search">
-          <span>⌕</span>
-          <input type="search" placeholder="検索: 注文、ユーザー、レポート..." />
+        <div class="title-block">
+          <h2>ダッシュボード</h2>
+          <p>売上・タスク・稼働状況を一画面で確認</p>
         </div>
-
         <div class="top-actions">
-          <button class="icon-btn" aria-label="通知">🔔</button>
-          <button class="ghost-btn">今月</button>
-
-          <div class="admin-profile" aria-label="管理者情報">
-            <div class="admin-avatar">M</div>
-            <div class="admin-text">
-              <span class="role">管理者</span>
-              <span class="name">Miyu Tanaka</span>
-            </div>
-          </div>
-
-          <button class="primary-btn">新規作成</button>
+          <input class="search" type="text" placeholder="検索..." />
+          <button class="btn">+ 新規作成</button>
+          <div class="avatar">QY</div>
         </div>
       </div>
 
-      <section class="hero" id="overview">
-        <div class="panel welcome">
-          <div class="eyebrow"><span class="badge-dot"></span> 本日のダッシュボード概要</div>
-          <h2>売上、注文、ユーザーの動きをひと目で確認できます。</h2>
-          <p>
-            管理画面の基本をまとめたHTML版です。人類は「見やすい」と言いながら、たいてい見づらい画面を作るので、そこだけ先に矯正してあります。
-          </p>
+      <section class="grid stats">
+        <div class="card stat-card">
+          <div class="stat-label">総売上</div>
+          <p class="stat-value">¥1,240,800</p>
+          <div class="stat-meta"><span class="badge">+18.4%</span> 前月比で増加</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">新規ユーザー</div>
+          <p class="stat-value">3,482</p>
+          <div class="stat-meta"><span class="badge">+12.1%</span> 直近30日</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">未処理タスク</div>
+          <p class="stat-value">27</p>
+          <div class="stat-meta"><span class="badge warn">注意</span> 早めに整理</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">稼働率</div>
+          <p class="stat-value">99.98%</p>
+          <div class="stat-meta"><span class="badge">安定</span> 障害ほぼなし</div>
+        </div>
+      </section>
+
+      <section class="grid main-grid">
+        <div class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3 class="panel-title">収益推移</h3>
+              <p class="panel-subtitle">週ごとの売上とアクセスの傾向</p>
+            </div>
+            <span class="badge">LIVE</span>
+          </div>
+
+          <div class="chart-wrap">
+            <div class="chart">
+              <svg viewBox="0 0 1000 300" width="100%" height="100%" preserveAspectRatio="none" aria-label="Revenue chart">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#7c3aed" />
+                    <stop offset="100%" stop-color="#22c55e" />
+                  </linearGradient>
+                </defs>
+
+                <g opacity="0.22" stroke="#94a3b8" stroke-width="1">
+                  <line x1="40" y1="40" x2="960" y2="40" />
+                  <line x1="40" y1="95" x2="960" y2="95" />
+                  <line x1="40" y1="150" x2="960" y2="150" />
+                  <line x1="40" y1="205" x2="960" y2="205" />
+                  <line x1="40" y1="260" x2="960" y2="260" />
+                </g>
+
+                <path d="M40,220 C110,210 140,140 210,145 C280,150 320,95 380,110 C450,128 495,55 560,78 C635,105 675,165 740,130 C805,95 860,122 960,82"
+                      fill="none" stroke="url(#lineGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M40,220 C110,210 140,140 210,145 C280,150 320,95 380,110 C450,128 495,55 560,78 C635,105 675,165 740,130 C805,95 860,122 960,82
+                         L960,280 L40,280 Z"
+                      fill="url(#lineGrad)" opacity="0.12" />
+                <g fill="#c4b5fd">
+                  <circle cx="210" cy="145" r="5" />
+                  <circle cx="380" cy="110" r="5" />
+                  <circle cx="560" cy="78" r="5" />
+                  <circle cx="740" cy="130" r="5" />
+                  <circle cx="960" cy="82" r="5" />
+                </g>
+              </svg>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini">
+                <span>コンバージョン率</span>
+                <strong>8.4%</strong>
+              </div>
+              <div class="mini">
+                <span>平均滞在時間</span>
+                <strong>4m 12s</strong>
+              </div>
+              <div class="mini">
+                <span>離脱率</span>
+                <strong>18.7%</strong>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="panel stats card">
-          <div class="section-head" style="margin-bottom: 10px;">
-            <h3>今日の要点</h3>
-            <span>Updated 5 min ago</span>
+        <div class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3 class="panel-title">最近のアクティビティ</h3>
+              <p class="panel-subtitle">更新内容とイベント</p>
+            </div>
           </div>
-          <div class="stat-card">
-            <div class="label">総売上</div>
-            <div class="value">¥1,284,300</div>
-            <div class="trend">+12.4% from yesterday</div>
-          </div>
-          <div class="stat-card" style="padding-top: 0;">
-            <div class="label">未処理タスク</div>
-            <div class="value">18</div>
-            <div class="trend">4件が優先対応</div>
+
+          <div class="list">
+            <div class="item">
+              <div class="item-info">
+                <strong>新しい注文が入りました</strong>
+                <span>12分前 ・ ECサイト</span>
+              </div>
+              <div class="amount">+¥24,800</div>
+            </div>
+            <div class="item">
+              <div class="item-info">
+                <strong>プロジェクトが完了</strong>
+                <span>1時間前 ・ Sprint #14</span>
+              </div>
+              <div class="amount">完了</div>
+            </div>
+            <div class="item">
+              <div class="item-info">
+                <strong>サーバー監視アラート解除</strong>
+                <span>3時間前 ・ Cloud</span>
+              </div>
+              <div class="amount">安定</div>
+            </div>
+            <div class="item">
+              <div class="item-info">
+                <strong>新規メンバー追加</strong>
+                <span>昨日 ・ Team Ops</span>
+              </div>
+              <div class="amount">+1</div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="grid-4">
-        <article class="panel metric">
-          <div class="title">注文数</div>
-          <div class="number">248</div>
-          <div class="sub">+18 / 前日比</div>
-        </article>
-        <article class="panel metric">
-          <div class="title">新規ユーザー</div>
-          <div class="number">76</div>
-          <div class="sub">+9 / 前日比</div>
-        </article>
-        <article class="panel metric">
-          <div class="title">転換率</div>
-          <div class="number">4.8%</div>
-          <div class="sub">安定しています</div>
-        </article>
-        <article class="panel metric">
-          <div class="title">問い合わせ</div>
-          <div class="number">12</div>
-          <div class="sub">2件は緊急</div>
-        </article>
-      </section>
-
-      <section class="content-grid">
-        <div class="panel card" id="orders">
-          <div class="section-head">
-            <h3>最新の注文</h3>
-            <span>直近24時間</span>
+      <section class="grid main-grid" style="margin-top:18px;">
+        <div class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3 class="panel-title">最近の注文</h3>
+              <p class="panel-subtitle">ステータスと金額の一覧</p>
+            </div>
           </div>
-          <table class="table" aria-label="注文一覧">
+
+          <table class="table">
             <thead>
               <tr>
                 <th>注文ID</th>
                 <th>顧客</th>
+                <th>商品</th>
                 <th>金額</th>
                 <th>状態</th>
               </tr>
@@ -620,91 +685,81 @@
             <tbody>
               <tr>
                 <td>#A1024</td>
-                <td>Yamada</td>
-                <td>¥24,800</td>
-                <td><span class="status">完了</span></td>
+                <td>佐藤</td>
+                <td>Pro Plan</td>
+                <td>¥49,800</td>
+                <td><span class="status success">支払い完了</span></td>
               </tr>
               <tr>
                 <td>#A1025</td>
-                <td>Suzuki</td>
-                <td>¥18,200</td>
+                <td>田中</td>
+                <td>Team Plan</td>
+                <td>¥29,800</td>
                 <td><span class="status pending">処理中</span></td>
               </tr>
               <tr>
                 <td>#A1026</td>
-                <td>Tanaka</td>
-                <td>¥51,000</td>
-                <td><span class="status">完了</span></td>
+                <td>鈴木</td>
+                <td>Basic Plan</td>
+                <td>¥9,800</td>
+                <td><span class="status success">支払い完了</span></td>
               </tr>
               <tr>
                 <td>#A1027</td>
-                <td>Sato</td>
-                <td>¥12,400</td>
-                <td><span class="status error">要確認</span></td>
+                <td>高橋</td>
+                <td>Enterprise</td>
+                <td>¥148,000</td>
+                <td><span class="status danger">確認待ち</span></td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="panel card" id="reports">
-          <div class="section-head">
-            <h3>売上チャート</h3>
-            <span>今週</span>
+        <div class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3 class="panel-title">タスク進捗</h3>
+              <p class="panel-subtitle">やること、という文明の呪い</p>
+            </div>
           </div>
-          <div class="chart" aria-label="簡易グラフ">
-            <div class="bar-wrap"><div class="bar" style="height: 42%;"></div><div class="bar-label">Mon</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 58%;"></div><div class="bar-label">Tue</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 34%;"></div><div class="bar-label">Wed</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 76%;"></div><div class="bar-label">Thu</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 64%;"></div><div class="bar-label">Fri</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 86%;"></div><div class="bar-label">Sat</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 48%;"></div><div class="bar-label">Sun</div></div>
-          </div>
-          <div class="footer-note">簡易表示。実データ連携に置き換えやすい構成です。</div>
-        </div>
-      </section>
 
-      <section class="content-grid">
-        <div class="panel card" id="users">
-          <div class="section-head">
-            <h3>最近のユーザーアクティビティ</h3>
-            <span>Live feed</span>
-          </div>
-          <div class="activity">
-            <div class="activity-item">
-              <div class="dot"></div>
-              <div>
-                <p class="title">新規登録が完了しました</p>
-                <p class="desc">user_2048 がアカウント作成を完了。</p>
+          <div class="list">
+            <div>
+              <div class="item" style="margin-bottom:10px;">
+                <div class="item-info">
+                  <strong>LPの改善</strong>
+                  <span>デザイン調整とCTA最適化</span>
+                </div>
+                <div class="amount">82%</div>
               </div>
+              <div class="progress"><div class="bar" style="width:82%"></div></div>
             </div>
-            <div class="activity-item">
-              <div class="dot"></div>
-              <div>
-                <p class="title">プロフィール更新</p>
-                <p class="desc">user_1987 が配送先情報を更新。</p>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="dot"></div>
-              <div>
-                <p class="title">問い合わせ返信</p>
-                <p class="desc">サポートチケット #7812 に返信済み。</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="panel card" id="settings">
-          <div class="section-head">
-            <h3>クイック設定</h3>
-            <span>Preferences</span>
+            <div>
+              <div class="item" style="margin-bottom:10px;">
+                <div class="item-info">
+                  <strong>API連携</strong>
+                  <span>決済周りの実装</span>
+                </div>
+                <div class="amount">63%</div>
+              </div>
+              <div class="progress"><div class="bar" style="width:63%"></div></div>
+            </div>
+
+            <div>
+              <div class="item" style="margin-bottom:10px;">
+                <div class="item-info">
+                  <strong>バグ修正</strong>
+                  <span>モバイル表示の微調整</span>
+                </div>
+                <div class="amount">41%</div>
+              </div>
+              <div class="progress"><div class="bar" style="width:41%"></div></div>
+            </div>
           </div>
-          <div style="display:grid; gap:12px;">
-            <button class="ghost-btn" style="width:100%; text-align:left;">通知を有効にする</button>
-            <button class="ghost-btn" style="width:100%; text-align:left;">ダークテーマ</button>
-            <button class="ghost-btn" style="width:100%; text-align:left;">CSVエクスポート</button>
-            <button class="ghost-btn" style="width:100%; text-align:left;">権限を確認する</button>
+
+          <div class="footer-note">
+            ※ ダークテーマ前提のダッシュボードUIです。見た目だけで賢そうに見える、いつものやつです。
           </div>
         </div>
       </section>
